@@ -5,22 +5,32 @@ RSpec.describe Musician, type: :model do
   
   context "should have personal information" do
     it "should have valid firstname" do
-      musician = Musician.new(firstname: nil)
+      musician = FactoryGirl.build(:musician)
+      musician.firstname = nil
       expect(musician).not_to be_valid
     end    
     
     it "should have a valid lastname" do
-      musician = Musician.new(lastname: nil, firstname: "Hayri")
+      musician = FactoryGirl.build(:musician)
+      musician.lastname = nil
       expect(musician).not_to be_valid
     end
 
     it "should have a valid birthdate" do
-      musician = Musician.new(birthdate: nil, firstname: "Hayri", lastname: "Cicek")
+      musician = FactoryGirl.build(:musician)
+      musician.birthdate = nil
       expect(musician).not_to be_valid
     end
 
     it "should have a valid link" do
-      musician = Musician.new(link: nil, firstname: "Hayri", lastname: "Cicek", birthdate: "1983-03-01")
+      musician = FactoryGirl.build(:musician)
+      musician.link = nil
+      expect(musician).not_to be_valid
+    end
+
+    it "should be unique link" do
+      FactoryGirl.create(:musician)
+      musician = FactoryGirl.build(:musician)
       expect(musician).not_to be_valid
     end
 
