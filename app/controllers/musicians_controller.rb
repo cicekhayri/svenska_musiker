@@ -24,7 +24,7 @@ class MusiciansController < ApplicationController
   def update
     @musician = find_musician
 
-    if @musician.update_attributes(find_musician)
+    if @musician.update_attributes(musician_params)
       redirect_to 'show'
     else
       render 'edit'
