@@ -7,6 +7,10 @@ class MusiciansController < ApplicationController
   def new
   end
 
+  def show
+    @musician = Musician.find(params[:id])
+  end
+
   def create
     @musician = Musician.new(musician_params)
 

@@ -38,4 +38,21 @@ RSpec.describe MusiciansController do
     end
   end
 
+  context "show action" do
+    before do 
+      @musician = Musician.create(firstname: "Hayri", lastname: "Cicek", birthdate: "1983-03-01", link: "http://hoshilab.com")
+    end
+
+    it "should render the show view" do
+      get :show, id: @musician.id
+      expect(response.status).to render_template :show
+    end
+
+    it "should get the musician" do
+      post :show, id: @musician.id
+      expect(assigns(:musician)).to eq(@musician)
+    end
+  end
+
+
 end
