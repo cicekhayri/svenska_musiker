@@ -5,6 +5,7 @@ class MusiciansController < ApplicationController
   end
 
   def new
+    @musician = Musician.new
   end
 
   def show
@@ -21,6 +22,8 @@ class MusiciansController < ApplicationController
   end
 
   def update
+    @musician = Musician.find(find_musician)
+
     redirect_to 'show'
   end
 
