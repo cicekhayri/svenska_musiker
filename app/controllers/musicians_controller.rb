@@ -1,5 +1,5 @@
 class MusiciansController < ApplicationController
-
+  before_filter :find_musician, only: [:show, :edit, :destroy]
   def index
     @musicians = Musician.all 
   end
@@ -8,7 +8,9 @@ class MusiciansController < ApplicationController
   end
 
   def show
-    @musician = Musician.find(params[:id])
+  end
+
+  def edit
   end
 
   def create
@@ -18,9 +20,21 @@ class MusiciansController < ApplicationController
     redirect_to 'index'
   end
 
-  private
+  def update
+    redirect_to 'show'
+  end
 
+  def destroy
+    @musician.destroy
+    redirect_to musician_path
+  end
+
+  private
   def musician_params
     params.require(:musician).permit(:firstname, :lastname, :birthdate, :link)
+  end
+
+  def find_musician
+    @musician = Musician.find(params[:id])
   end
 end

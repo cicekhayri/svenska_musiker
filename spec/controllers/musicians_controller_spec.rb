@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe MusiciansController do
-  
+  before do
+    @musician = Musician.create(firstname: 'Hayri', lastname: 'Cic', birthdate: '1983-09-10', link: 'http://google.com')
+  end
+
   context "index action" do
     it "should have status 200" do
       get :index
@@ -39,20 +42,45 @@ RSpec.describe MusiciansController do
   end
 
   context "show action" do
-    before do 
-      @musician = Musician.create(firstname: "Hayri", lastname: "Cicek", birthdate: "1983-03-01", link: "http://hoshilab.com")
-    end
-
     it "should render the show view" do
       get :show, id: @musician.id
       expect(response.status).to render_template :show
     end
 
     it "should get the musician" do
-      post :show, id: @musician.id
+      get :show, id: @musician.id
       expect(assigns(:musician)).to eq(@musician)
     end
   end
 
+  context "edit action" do
+    it 'should render the edit view do' do
+      get :edit, id: @musician
+      expect(response.status).to render_template :edit
+    end
+  end
+  
+  context "update action" do
+    it "should redirect to the show action when success" do
+      put :update, id: @musician.id, :musician => @musician
+      expect(response.status).to eq(302)
+    end
+
+    it "should update the musician information and save to the database" do
+      put :update, id: @musician.id, musician: @musician.update_attributes(lastname: "Cicek", birthdate: '1983-03-01', link: 'http://hoshilab.com')
+      @musician.reload
+      expect(@musician.lastname).to eq(@musician.lastname)
+      expect(@musician.firstname).to eq(@musician.firstname)
+      expect(@musician.birthdate).to eq(@musician.birthdate)
+      expect(@musician.link).to eq(@musician.link)
+    end
+  end
+
+  context "destroy action" do
+    it "should delete the user and redirect to the root of the app" do
+      delete :destroy, id: @musician 
+      expect(response.status).to eq(302)
+    end
+  end
 
 end
