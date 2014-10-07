@@ -26,9 +26,9 @@ RSpec.describe MusiciansController do
   end
 
   context "create action" do
-    it "should have status 302" do
+    it "should have status 200" do
       post :create, musician: Musician.new.attributes
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(200)
     end
 
     it "should save musician information to the database" do
@@ -39,6 +39,14 @@ RSpec.describe MusiciansController do
       expect(Musician.find_by_lastname("Cicek").birthdate).to eq(musician.birthdate)
       expect(Musician.find_by_lastname("Cicek").link).to eq(musician.link)
     end
+
+    it "should not get saved to the db if the value is nil" do
+      @musician.firstname = nil
+
+      post :create, musician: @musician.attributes
+      expect(response).to render_template :new
+    end
+
   end
 
   context "show action" do

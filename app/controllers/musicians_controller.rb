@@ -17,8 +17,11 @@ class MusiciansController < ApplicationController
   def create
     @musician = Musician.new(musician_params)
 
-    @musician.save
-    redirect_to 'index'
+    if @musician.save
+      redirect_to 'index'
+    else
+      render :new
+    end
   end
 
   def update
