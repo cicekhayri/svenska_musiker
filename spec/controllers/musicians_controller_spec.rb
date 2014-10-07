@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MusiciansController do
   before do
-    @musician = Musician.create(firstname: 'Hayri', lastname: 'Cic', birthdate: '1983-09-10', link: 'http://google.com')
+    @musician = FactoryGirl.create(:musician)
   end
 
   context "index action" do
@@ -32,12 +32,11 @@ RSpec.describe MusiciansController do
     end
 
     it "should save musician information to the database" do
-      musician = Musician.new(firstname: "Hayri", lastname: "Cicek", birthdate: "1983-03-01", link: "http://hoshilab.com")
-      post :create, musician: musician.attributes     
-      expect(Musician.find_by_lastname("Cicek").lastname).to eq(musician.lastname)
-      expect(Musician.find_by_lastname("Cicek").firstname).to eq(musician.firstname)
-      expect(Musician.find_by_lastname("Cicek").birthdate).to eq(musician.birthdate)
-      expect(Musician.find_by_lastname("Cicek").link).to eq(musician.link)
+      post :create, musician: @musician.attributes     
+      expect(Musician.find_by_lastname(@musician.lastname).lastname).to eq(@musician.lastname)
+      expect(Musician.find_by_lastname(@musician.lastname).firstname).to eq(@musician.firstname)
+      expect(Musician.find_by_lastname(@musician.lastname).birthdate).to eq(@musician.birthdate)
+      expect(Musician.find_by_lastname(@musician.lastname).link).to eq(@musician.link)
     end
 
     it "should not get saved to the db if the value is nil" do
