@@ -3,4 +3,5 @@ class Musician < ActiveRecord::Base
   validates :lastname, presence: true
   validates :link, presence: true, uniqueness: true
   validates :birthdate, presence: true
+  validates :specialized_on, presence: true
 end

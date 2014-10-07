@@ -34,6 +34,12 @@ RSpec.describe Musician, type: :model do
       expect(musician).not_to be_valid
     end
 
+    it "should be specialized on one instrument" do
+      musician = FactoryGirl.build(:musician)
+      musician.specialized_on = nil
+      expect(musician).not_to be_valid
+    end
+
   end
 
   
