@@ -62,23 +62,27 @@ RSpec.describe MusiciansController do
   
   context "update action" do
     it "should redirect to the show action when success" do
-      put :update, id: @musician.id, :musician => @musician
+      put :update, {id: @musician.id, :musician => @musician.attributes}
       expect(response.status).to eq(302)
     end
 
     it "should update the musician information and save to the database" do
-      put :update, id: @musician.id, musician: @musician.update_attributes(lastname: "Cicek", birthdate: '1983-03-01', link: 'http://hoshilab.com')
-      @musician.reload
-      expect(@musician.lastname).to eq(@musician.lastname)
+      @musician.firstname = "Vakz"
+      put :update, {id: @musician.id, musician: @musician.attributes}
       expect(@musician.firstname).to eq(@musician.firstname)
-      expect(@musician.birthdate).to eq(@musician.birthdate)
-      expect(@musician.link).to eq(@musician.link)
+    end 
+
+    it "should redirect back to the edit form if the information is not valid" do
+      @musician.firstname = nil
+      put :update, {id: @musician.id, musician: @musician.attributes}
+     
+      expect(response).to render_template :edit
     end
   end
 
   context "destroy action" do
     it "should delete the user and redirect to the root of the app" do
-      delete :destroy, id: @musician 
+      delete :destroy, id: @musician.id 
       expect(response.status).to eq(302)
     end
   end

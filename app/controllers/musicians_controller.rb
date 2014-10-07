@@ -22,9 +22,13 @@ class MusiciansController < ApplicationController
   end
 
   def update
-    @musician = Musician.find(find_musician)
+    @musician = find_musician
 
-    redirect_to 'show'
+    if @musician.update_attributes(find_musician)
+      redirect_to 'show'
+    else
+      render 'edit'
+    end
   end
 
   def destroy
