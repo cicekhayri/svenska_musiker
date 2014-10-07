@@ -1,0 +1,15 @@
+<h1>Create new Instrument</h1>
+
+<% if @instrument.errors.any? %>
+  <ul>
+    <% @instrument.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @instrument do |f| %>
+  <%= f.label :instrument_name, "Instrument" %>
+  <%= f.text_field :instrument_name %>
+  <%= f.submit %>
+<% end %>

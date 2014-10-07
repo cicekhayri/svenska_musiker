@@ -12,7 +12,7 @@ class InstrumentsController < ApplicationController
     @instrument = Instrument.new(instrument_params)
 
     if @instrument.save
-      redirect_to 'index'
+      redirect_to instruments_path
     else
       render :new
     end

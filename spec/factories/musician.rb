@@ -5,7 +5,6 @@ FactoryGirl.define do
     birthdate '1983-03-01'
     link 'http://hoshilab.com'
   
-    specialized_on "composer"
-  
+    specialized_on "composer" 
   end
 end

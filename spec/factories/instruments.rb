@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :instrument do
-    sequence(:instrument_name) { |index| "Instrument #{index}" }
+    instrument_name "Pianist"
   end
 end
