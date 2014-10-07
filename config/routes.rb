@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :musicians
-  resources :instruments, only: [:index]
+  resources :instruments, only: [:index, :new, :create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
